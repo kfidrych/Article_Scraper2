@@ -32,7 +32,7 @@ app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
 // Connect to the Mongo DB
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/NewsScraperDB";
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/ArticleScraperDB";
 
 // Set mongoose to leverage built in JavaScript ES6 Promises
 // Connect to the Mongo DB
@@ -96,6 +96,16 @@ app.get("/articles", function (req, res) {
         })
         .catch(function (err) {
             // If an error occurred, send it to the client
+            res.json(err);
+        });
+});
+
+app.get("/notes", function (req, res) {
+    db.Note.find({})
+        .then(function (dbNote) {
+            res.json(dbNote);
+        })
+        .catch(function (err) {
             res.json(err);
         });
 });

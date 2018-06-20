@@ -8,10 +8,10 @@
                 <a href="/">Home</a>
             </li>
             <li>
-                <a href="/saved">Saved Articles</a>
+                <a href="/saved">Notes</a>
             </li>
             <li>
-                <a class="btn btn-danger scrape-new">SCRAPE NEW ARTICLES!</a>
+                <a class="btn btn-danger scrape-new" onclick="location.href='/scrape'">SCRAPE NEW ARTICLES!</a>
             </li>
         </ul>
     </div>
@@ -32,7 +32,7 @@
 
 <div id="wrapper">
     <div id="articles">
-        <div class="container-fluid article-container"></div>
+        <div class="container-fluid article-container" id="articleContainer"></div>
     </div>
     <div id="notes"></div>
 </div>
