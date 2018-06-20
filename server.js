@@ -175,7 +175,7 @@ app.post("/articles/:id", function (req, res) {
 
 app.post('/saveNote', (req, res) => {
     // creates a new Note document
-    const newNote = new Note({ body: req.body.body });
+    const newNote = new Note({ body: req.body.body});
 
     // will hold the noteId once it is created so that it can be used to save to the user
     let noteId = null;

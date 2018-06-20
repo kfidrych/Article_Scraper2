@@ -8,9 +8,16 @@ $.getJSON("/articles", function (data) {
 
         if (data[i].notes.length > 0) {
             $("#notesContainer").append("<div class='panel panel-default'><div class='panel-heading'><h3><a class='article-link' target='_blank' data-id='" + data[i]._id + "' href='" + data[i].link + "'>" + data[i].title + "</a><a class='btn btn-danger delete' data-id='" + data[i]._id + "'>Delete Note</a></h3></div><div class='panel-body' id='noteBody'></div></div>");
-            // var notes = [];
-            // for (var x = 0; x < data[i].notes.length; x++) {
-            //     notes.push(data[i].notes[x]);
+            for (var x=0; x<data[i].notes.length; x++) {
+                $.getJSON("/notes/" + data[i].notes[x], function(results) {
+                    $("#noteBody").append(results.body);
+                })
+            }
+
+            var notes = [];
+            for (var x = 0; x < data[i].notes.length; x++) {
+                notes.push(data[i].notes[x]);
+                // $("#noteBody").append(data[i].notes[x]);
             //     for (var i = 0; i < notes.length; i++) {
             //         $.getJSON("/notes/" + notes[i], function (data) {
             //             var comments = [];
@@ -18,7 +25,8 @@ $.getJSON("/articles", function (data) {
             //             console.log(data.body);
             //         })
             //     }
-            // }
+            }
+            
 
             
 
