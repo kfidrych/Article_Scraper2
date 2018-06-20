@@ -1,6 +1,10 @@
 {
   "name": "article_scraper2",
   "version": "1.0.0",
+  "engines": {
+    "node": "8.9.x",
+    "npm": "6.1.x"
+  },
   "description": "Article Scraper and User Comments",
   "main": "server.js",
   "scripts": {
