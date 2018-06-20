@@ -3,17 +3,27 @@ $.getJSON("/articles", function (data) {
     // For each one
     for (var i = 0; i < data.length; i++) {
         // Display the apropos information on the page
-        $("#articles").append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "</p>");
+        // console.log(data);
+        $(".article-container").append("<div class='panel panel-default'><div class='panel-heading'><h3><a class='article-link' target='_blank' data-id='" + data[i]._id + "' href='" + data[i].link + "'>" + data[i].title + "</a><a class='btn btn-success save' data-id='" + data[i]._id + "' data-toggle='modal' data-target='#noteModal'>Add a Note</a></h3></div><div class='panel-body'></div></div>");
+
+        // ("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "</p>");
     }
 });
 
+$(document).on("click", ".save", function () {
+    var thisId = $(this).attr("data-id");
+    $(".modal-title").text(thisId);
+    // $(".modal-title").addClass("modal-data-id", thisId);
+    $(".modal-body").html("<textarea rows='4' cols='50' id='noteBox' placeholder='Enter Note Here' ></textarea>");
+})
+
 
 // Whenever someone clicks a p tag
-$(document).on("click", "p", function () {
+$(document).on("click", "#savenote", function () {
     // Empty the notes from the note section
+    var thisId = $(this).attr("data-id");
     $("#notes").empty();
     // Save the id from the p tag
-    var thisId = $(this).attr("data-id");
 
     // Now make an ajax call for the Article
     $.ajax({
@@ -43,9 +53,9 @@ $(document).on("click", "p", function () {
 });
 
 // When you click the savenote button
-$(document).on("click", "#savenote", function () {
+$(document).on("click", "#saveNote", function () {
     // Grab the id associated with the article from the submit button
-    var thisId = $(this).attr("data-id");
+    var thisId = $(".modal-title").text();
 
     // Run a POST request to change the note, using what's entered in the inputs
     $.ajax({
@@ -53,9 +63,9 @@ $(document).on("click", "#savenote", function () {
         url: "/articles/" + thisId,
         data: {
             // Value taken from title input
-            title: $("#titleinput").val(),
+            title: $(".modal-title").text(),
             // Value taken from note textarea
-            body: $("#bodyinput").val()
+            body: $("textarea").val()
         }
     })
         // With that done
